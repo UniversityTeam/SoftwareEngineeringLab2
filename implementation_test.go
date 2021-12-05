@@ -13,7 +13,7 @@ func TestPostfixToPrefix(t *testing.T) {
 }
 
 func TestPostfixToPrefixLabExample(t *testing.T) {
-	res, err := ConvertPostfixToPrefix("4 2 - 3 * 5 + 12 -")
+	res, err := ConvertPostfixToPrefix("4 2 - 3 * 5 +")
 	assert.Equal(t, nil, err)
 	assert.Equal(t, "+ * - 4 2 3 5", res)
 }
