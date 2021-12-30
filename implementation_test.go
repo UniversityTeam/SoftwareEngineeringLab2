@@ -2,6 +2,8 @@ package lab2
 
 import (
 	"testing"
+	"strings"
+	"fmt"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -52,4 +54,18 @@ func TestPostfixToPrefixEmptyInput(t *testing.T) {
 	res, err := ConvertPostfixToPrefix("")
 	assert.Equal(t, "", res)
 	assert.NotNil(t, err)
+}
+
+var res string
+
+func BenchmarkPostfixToPrefix(b *testing.B) {
+  expression := "54 6 3 * / 7 + 11 -"
+  for i := 1; i <= 20; i++ {
+    repeatedExpression := strings.Repeat(expression, i * i) + "10" //add 10 to avoid broking expression
+    b.Run(fmt.Sprintf("%d-operators", i * i * 6), func(b *testing.B) {
+        for i := 0; i < b.N; i++ {
+            res, _ = ConvertPostfixToPrefix(repeatedExpression)
+        }
+    })
+  }
 }
